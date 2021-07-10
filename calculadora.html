@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    
+    <style>
+        h1{
+            text-align: center;
+            font-size: 45px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        h2{
+            text-align: center;
+            height: 50px;
+            font-size: 35px;
+        }
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .fundo{ /*puxa a div com classe=fundo*/
+            
+            background-color: rgb(3, 3, 98);/* muda a cor do fundo*/ 
+            height: 100vh; /*Aplica o fundo em todo a conteudo*/
+            color:white; /*Muda a cor da fonte*/
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; /*muda o estilo da fonte*/
+            
+        }
+        .calculadora{ /*puxa a div com classe=calculadora*/
+            position: absolute; 
+            background-color: black; /*coloca a cor do fundo da calculadora*/
+            top: 50%; 
+            left: 50%;
+            transform: translate(-50%, -50%); /*coloca a calculadora no centro da tela*/
+            border-radius: 15px; /*arredonda a borda da calculadora*/
+            padding: 20px; /*distacia entre os elementos e a borda*/
+        }
+        .botao{ /*configura para todos os botoes*/
+            background-color: gray; /*cor de fundo dos botoes*/
+            width: 50px; /*largura do botoes*/
+            height: 40px; /*altura do botoes*/
+            font-size: 30px; /*tamanho da fonte*/
+            cursor: pointer; /*muda o cursor quando esta em cima do botão*/
+            margin: 0.5px; /*coloca uma margem entre os botoes*/
+            
+        }
+        #resultado{
+            width: 207px;
+            background-color: white;
+            margin: 3px;
+            height: 30px;
+            font-size: 22px;
+            color: black;
+            text-align: right;
+        }
+        
+
+    </style>
+</head>
+<body>
+    <div class="fundo">
+        <h1>Bem-vindo ao Desenvolvimento na Web</h1>
+        <div class="calculadora"> 
+            <h2>Calculadora</h2>
+            <p id="resultado"></p>
+            <table> 
+                <tr> 
+                    <td><button class="botao" onclick="clean();">C</button></td><!--Cria o botão para zerar a calculadora-->
+                    <td><button class="botao" onclick="apagar()"><</button></td><!--Cria o botão excluir um elemento-->
+                    <td><button class="botao" onclick="insert('/')">/</button></td><!--Cria o botão para a operação de dividir-->
+                    <td><button class="botao" onclick="insert('*')">x   </button></td><!--Cria o botão para a operação de multiplicar-->
+                </tr>
+                <tr>
+                    <td><button class="botao" onclick="insert('7')">7</button></td><!--Cria o botão incluir um elemento-->
+                    <td><button class="botao" onclick="insert('8')">8</button></td><!--Cria o botão incluir um elemento-->
+                    <td><button class="botao" onclick="insert('9')">9</button></td><!--Cria o botão incluir um elemento-->
+                    <td><button class="botao" onclick="insert('-')">-</button></td><!--Cria o botão para a operação de subtração-->
+                </tr>
+                <tr>
+                    <td><button class="botao" onclick="insert('4')">4</button></td><!--Cria o botão incluir um elemento-->
+                    <td><button class="botao" onclick="insert('5')">5</button></td><!--Cria o botão incluir um elemento-->
+                    <td><button class="botao" onclick="insert('6')">6</button></td><!--Cria o botão incluir um elemento-->
+                    <td><button class="botao" onclick="insert('+')">+</button></td><!--Cria o botão para a operação de adição-->
+                </tr>
+                <tr>
+                    <td><button class="botao" onclick="insert('1')">1</button></td><!--Cria o botão incluir um elemento-->
+                    <td><button class="botao" onclick="insert('2')">2</button></td><!--Cria o botão incluir um elemento-->
+                    <td><button class="botao" onclick="insert('3')">3</button></td><!--Cria o botão incluir um elemento-->
+                    <td rowspan="2"><button class="botao" style="height: 82px;" onclick="operacao()">=</button></td> <!--Cria o botão para a operação de igual, com tamanho diferente-->
+                </tr>
+                <tr>
+                    <td colspan="2"><button class="botao" style="width: 103px;" onclick="insert('0')">0</button></td><!--Cria o botão incluir um elemento, com tamanho diferente-->
+                    <td><button class="botao" onclick="insert('.')">.</button></td><!--Cria o botão para colocar uma virgula no numero-->
+                    
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script>
+        var novoNumero = false;
+        function insert(x){ /*função que é chamada toda vez que um numero for selecionado*/
+            
+            if(x== '+'|| x== '-'|| x== '/'|| x== '*'){
+                var num = document.getElementById('resultado').innerHTML; /*salvar o primeiro numero*/
+                document.getElementById('resultado').innerHTML = num + x; /*acrescenta um novo numero naquele salvo anteriormente*/
+                novoNumero = false;
+            }
+            else if(novoNumero==true){
+                document.getElementById('resultado').innerHTML = "" + x;
+                novoNumero = false;
+            }
+            else if(x== '.' ||x== 1 || x== 2|| x== 3|| x== 4|| x== 5|| x== 6|| x== 7|| x== 8|| x== 9||x==0){
+                var num = document.getElementById('resultado').innerHTML; /*salvar o primeiro numero*/
+                document.getElementById('resultado').innerHTML = num + x; /*acrescenta um novo numero naquele salvo anteriormente*/
+                novoNumero = false;
+            }
+                
+            }
+           
+            
+        
+        function operacao(){
+            var resultado = document.getElementById('resultado').innerHTML;
+            novoNumero = false;
+           
+            if(resultado){
+                document.getElementById('resultado').innerHTML = eval(resultado);
+                novoNumero = true;
+            }
+            
+            else{
+                document.getElementById('resultado').innerHTML = "NaN";
+            }
+        }
+        function clean(){
+            document.getElementById('resultado').innerHTML = "";
+        }
+        function apagar(){
+            var resultado = document.getElementById('resultado').innerHTML;
+            document.getElementById('resultado').innerHTML = resultado.substring(0,resultado.length -1);
+        }
+    </script>
+</body>
+</html>
